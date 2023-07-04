@@ -75,22 +75,23 @@ while(cap.isOpened()):
   cnts, _= cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
   for c in cnts:
-    # 忽略太小的區域
     if cv2.contourArea(c) > 250000:
       
-      Motion = 1
+      #Motion = 1
     # 偵測到物體，可以自己加上處理的程式碼在這裡...
     # 計算等高線的外框範圍
       (x, y, w, h) = cv2.boundingRect(c)
 
     # 畫出外框
       cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+      '''
       print(cv2.contourArea(c))
       if Motion == 1:
         data = {
         'message': message
         }
         data = requests.post(url, headers=headers, data=data)
+      '''
     
       
   # 畫出等高線（除錯用）
@@ -108,7 +109,7 @@ while(cap.isOpened()):
   # 更新平均影像
   cv2.accumulateWeighted(blur, avg_float, 0.01)
   avg = cv2.convertScaleAbs(avg_float)
-  Motion = 0
+  #Motion = 0
 
 cap.release()
 out.release()
