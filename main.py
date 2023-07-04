@@ -8,12 +8,17 @@ cap = cv2.VideoCapture(1)
 width = 1280
 height = 960
 
+# 計算畫面面積
+area = width * height
+
 # 設定擷取影像的尺寸大小
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
-# 計算畫面面積
-area = width * height
+# 編碼方式：XVID
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
+
+out = cv2.VideoWriter('VideoOutput.avi', fourcc, 30.0, (640, 480))
 
 # 初始化平均影像
 ret, frame = cap.read()
@@ -27,6 +32,10 @@ while(cap.isOpened()):
   # 若讀取至影片結尾，則跳出
   if ret == False:
     break
+
+  # 影格寫入
+  if ret == True:
+    out.write(frame)
 
   # 模糊處理
   blur = cv2.blur(frame, (4, 4))
