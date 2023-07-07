@@ -1,6 +1,10 @@
 import cv2
 import numpy as np
 import os
+import datetime
+
+now = datetime.now()
+Videotime = now.strftime('%Y__%m__%d__%H__%M__%S')
 
 # 影片檔案
 videoFile = "output.mp4"
@@ -61,20 +65,18 @@ while(cap.isOpened()):
   hasMotion = False
   for c in cnts:
     # 忽略太小的區域
-    if cv2.contourArea(c) < 2500:
-      continue
+    if cv2.contourArea(c) > 250000:
 
-    hasMotion = True
-
-    # 計算等高線的外框範圍
-    (x, y, w, h) = cv2.boundingRect(c)
-
-    # 畫出外框
-    cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        hasMotion = True
+        # 計算等高線的外框範圍
+        (x, y, w, h) = cv2.boundingRect(c)
+        # 畫出外框
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
   if hasMotion:
     # 儲存有變動的影像
     cv2.imwrite("%s/output_%04d.jpg" % (outputFolder, outputCounter), frame)
+    # Timer.countdown()
     outputCounter += 1
 
   # 更新平均影像

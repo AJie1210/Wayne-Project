@@ -1,16 +1,8 @@
 import cv2
-import requests
 import numpy as np
 
 # 開啟網路攝影機
 cap = cv2.VideoCapture(1)
-
-url = "https://notify-api.line.me/api/notify"
-token = 'H44jk8khEIz80QcCIoi7SXdCURr58ezeQFlUhYBqMJC'
-message = '偵測到物體'
-headers = {
-    "Authorization": "Bearer " + token
-}
 
 # 設定影像尺寸
 # width = 1280
@@ -52,10 +44,10 @@ while(cap.isOpened()):
   blur = cv2.blur(frame, (4, 4))
 
   # 計算目前影格與平均影像的差異值
-  diff = cv2.absdiff(avg, blur)
+  different = cv2.absdiff(avg, blur)
 
   # 將圖片轉為灰階
-  gray = cv2.cvtColor(diff, cv2.COLOR_BGR2GRAY)
+  gray = cv2.cvtColor(different, cv2.COLOR_BGR2GRAY)
 
   # 篩選出變動程度大於門檻值的區域
   # 影像二值化（灰階影像, 像素灰階門檻值, 像素灰階最大值, 二值化類型）
@@ -77,22 +69,11 @@ while(cap.isOpened()):
   for c in cnts:
     if cv2.contourArea(c) > 250000:
       
-      #Motion = 1
-    # 偵測到物體，可以自己加上處理的程式碼在這裡...
-    # 計算等高線的外框範圍
+      # 偵測到物體，可以自己加上處理的程式碼在這裡...
+      # 計算等高線的外框範圍
       (x, y, w, h) = cv2.boundingRect(c)
-
-    # 畫出外框
-      cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-      '''
+      cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
       print(cv2.contourArea(c))
-      if Motion == 1:
-        data = {
-        'message': message
-        }
-        data = requests.post(url, headers=headers, data=data)
-      '''
-    
       
   # 畫出等高線（除錯用）
   # 畫出輪廓（要畫的圖片, 先前找出的輪廓 cnts, -1 = 所有找到的輪廓點, 顏色, 線條粗度）
@@ -109,7 +90,6 @@ while(cap.isOpened()):
   # 更新平均影像
   cv2.accumulateWeighted(blur, avg_float, 0.01)
   avg = cv2.convertScaleAbs(avg_float)
-  #Motion = 0
 
 cap.release()
 out.release()
