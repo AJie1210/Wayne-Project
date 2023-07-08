@@ -3,7 +3,7 @@ import numpy as np
 import os
 import datetime
 
-now = datetime.now()
+now = datetime.datetime.now()
 Videotime = now.strftime('%Y__%m__%d__%H__%M__%S')
 
 # 影片檔案
@@ -32,7 +32,7 @@ avg = cv2.blur(frame, (4, 4))
 avg_float = np.float32(avg)
 
 # 輸出圖檔用的計數器
-outputCounter = 0
+#outputCounter = 0
 
 while(cap.isOpened()):
   # 讀取一幅影格
@@ -75,9 +75,9 @@ while(cap.isOpened()):
 
   if hasMotion:
     # 儲存有變動的影像
-    cv2.imwrite("%s/output_%04d.jpg" % (outputFolder, outputCounter), frame)
+    cv2.imwrite("%s/output_%04d.jpg" % (outputFolder, int(Videotime)), frame)
     # Timer.countdown()
-    outputCounter += 1
+    #outputCounter += 1
 
   # 更新平均影像
   cv2.accumulateWeighted(blur, avg_float, 0.01)

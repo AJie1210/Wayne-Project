@@ -67,7 +67,7 @@ while(cap.isOpened()):
   cnts, _= cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
   for c in cnts:
-    if cv2.contourArea(c) > 250000:
+    if cv2.contourArea(c) > 250000 and cv2.contourArea(c) < 1000000:
       
       # 偵測到物體，可以自己加上處理的程式碼在這裡...
       # 計算等高線的外框範圍
