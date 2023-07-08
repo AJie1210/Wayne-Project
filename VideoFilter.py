@@ -1,10 +1,6 @@
 import cv2
 import numpy as np
 import os
-import datetime
-
-now = datetime.datetime.now()
-Videotime = now.strftime('%Y__%m__%d__%H__%M__%S')
 
 # 影片檔案
 videoFile = "output.mp4"
@@ -23,16 +19,13 @@ cap = cv2.VideoCapture(videoFile)
 width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
 height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
-# 計算畫面面積
-area = width * height
-
 # 初始化平均畫面
 ret, frame = cap.read()
 avg = cv2.blur(frame, (4, 4))
 avg_float = np.float32(avg)
 
 # 輸出圖檔用的計數器
-#outputCounter = 0
+outputCounter = 0
 
 while(cap.isOpened()):
   # 讀取一幅影格
@@ -62,22 +55,22 @@ while(cap.isOpened()):
   # 產生等高線
   cnts, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-  hasMotion = False
+  Motion = False
   for c in cnts:
     # 忽略太小的區域
-    if cv2.contourArea(c) > 250000:
+    if cv2.contourArea(c) > 250000 and cv2.contourArea(c) < 1000000:
 
-        hasMotion = True
+        Motion = True
         # 計算等高線的外框範圍
         (x, y, w, h) = cv2.boundingRect(c)
         # 畫出外框
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-  if hasMotion:
+  if Motion:
     # 儲存有變動的影像
-    cv2.imwrite("%s/output_%04d.jpg" % (outputFolder, int(Videotime)), frame)
+    cv2.imwrite("%s/output_%04d.jpg" % (outputFolder, outputCounter), frame)
     # Timer.countdown()
-    #outputCounter += 1
+    outputCounter += 1
 
   # 更新平均影像
   cv2.accumulateWeighted(blur, avg_float, 0.01)

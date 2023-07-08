@@ -69,7 +69,7 @@ while(cap.isOpened()):
   for c in cnts:
     if cv2.contourArea(c) > 250000 and cv2.contourArea(c) < 1000000:
       
-      # 偵測到物體，可以自己加上處理的程式碼在這裡...
+      # 偵測到物體
       # 計算等高線的外框範圍
       (x, y, w, h) = cv2.boundingRect(c)
       cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
