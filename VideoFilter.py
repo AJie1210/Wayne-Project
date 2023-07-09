@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 import os
 
+interval = 20
+
 # 影片檔案
 videoFile = "output.mp4"
 
@@ -25,8 +27,8 @@ avg = cv2.blur(frame, (4, 4))
 avg_float = np.float32(avg)
 
 # 輸出圖檔用的計數器
-outputCounter = 0
-
+# outputCounter = 0
+count = 0
 while(cap.isOpened()):
   # 讀取一幅影格
   ret, frame = cap.read()
@@ -55,6 +57,7 @@ while(cap.isOpened()):
   # 產生等高線
   cnts, _ = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
+  
   Motion = False
   for c in cnts:
     # 忽略太小的區域
@@ -67,10 +70,15 @@ while(cap.isOpened()):
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
   if Motion:
+      if count % interval == 0:
+        # 儲存影格
+        frame_path = f"{outputFolder}/frame{count}.jpg"
+        cv2.imwrite(frame_path, frame)
+      count += 1
     # 儲存有變動的影像
-    cv2.imwrite("%s/output_%04d.jpg" % (outputFolder, outputCounter), frame)
+    # cv2.imwrite("%s/output_%04d.jpg" % (outputFolder, outputCounter), frame)
     # Timer.countdown()
-    outputCounter += 1
+    # outputCounter += 1
 
   # 更新平均影像
   cv2.accumulateWeighted(blur, avg_float, 0.01)
