@@ -5,7 +5,7 @@ import os
 interval = 20
 
 # 影片檔案
-videoFile = "output.mp4"
+videoFile = "Test.mp4"
 
 # 輸出目錄
 outputFolder = "My_output"
@@ -60,7 +60,7 @@ while(cap.isOpened()):
   
   Motion = False
   for c in cnts:
-    # 忽略太小的區域
+    # 忽略太小跟太大的區域
     if cv2.contourArea(c) > 250000 and cv2.contourArea(c) < 1000000:
 
         Motion = True
