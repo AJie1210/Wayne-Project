@@ -38,6 +38,8 @@ output_path = "output_test"
 if not os.path.exists(output_path):
   os.makedirs(output_path)
 
-interval = 20  # 每隔30影格提取一次影格
+# 每隔20影格截圖一次(Video FPS = 20), 一秒截圖一次
+# 每隔40影格截圖一次(Video FPS = 20), 兩秒截圖一次
+interval = 20  
 
 extract_frames(video_path, output_path, interval)

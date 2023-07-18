@@ -5,7 +5,7 @@ import os
 interval = 20
 
 # 影片檔案
-videoFile = "Test.mp4"
+videoFile = "Test2.MP4"
 
 # 輸出目錄
 outputFolder = "My_output"
@@ -60,7 +60,7 @@ while(cap.isOpened()):
   
   Motion = False
   for c in cnts:
-    # 忽略太小跟太大的區域
+    # 忽略太小的區域
     if cv2.contourArea(c) > 250000 and cv2.contourArea(c) < 1000000:
 
         Motion = True
@@ -68,8 +68,9 @@ while(cap.isOpened()):
         (x, y, w, h) = cv2.boundingRect(c)
         # 畫出外框
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
+  # 偵測到畫面有變動
   if Motion:
+      # 每隔 x 個影格截圖一次（init = 20 frame(1 second)）
       if count % interval == 0:
         # 儲存影格
         frame_path = f"{outputFolder}/frame{count}.jpg"
