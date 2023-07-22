@@ -5,7 +5,7 @@ import os
 interval = 20
 
 # 影片檔案
-videoFile = "Test2.MP4"
+videoFile = "video2.MP4"
 
 # 輸出目錄
 outputFolder = "My_output"
