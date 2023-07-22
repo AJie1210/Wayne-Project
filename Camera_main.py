@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # 開啟網路攝影機
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 # 設定影像尺寸
 # width = 1280
