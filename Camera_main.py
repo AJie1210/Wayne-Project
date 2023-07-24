@@ -1,8 +1,9 @@
 import cv2
 import numpy as np
+import datetime
 
 # 開啟網路攝影機
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 # 設定影像尺寸
 # width = 1280
@@ -40,6 +41,15 @@ while(cap.isOpened()):
   if ret == False:
     break
 
+  # 顯示當前時間，視窗解析度
+  font = cv2.FONT_HERSHEY_SIMPLEX
+  text = 'Width ' + str(cap.get(3)) + 'Height ' + str(cap.get(4))
+  date = str(datetime.datetime.now())
+  frame = cv2.putText(frame, text, (10, 50), font, 1,
+                      (0, 255, 255), 2, cv2.LINE_AA)
+  frame = cv2.putText(frame, date, (10, 100), font, 1,
+                      (0, 255, 255), 2, cv2.LINE_AA)
+
   # 模糊處理
   blur = cv2.blur(frame, (4, 4))
 
@@ -72,7 +82,7 @@ while(cap.isOpened()):
       # 偵測到物體
       # 計算等高線的外框範圍
       (x, y, w, h) = cv2.boundingRect(c)
-      cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+      cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
       print(cv2.contourArea(c))
       
   # 畫出等高線（除錯用）
