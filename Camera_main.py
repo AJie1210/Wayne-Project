@@ -5,12 +5,6 @@ import datetime
 # 開啟網路攝影機
 cap = cv2.VideoCapture(1)
 
-# 設定影像尺寸
-# width = 1280
-# height = 960
-
-# 計算畫面面積
-# area = width * height
 # 編碼方式：XVID
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -85,7 +79,7 @@ while(cap.isOpened()):
       cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
       print(cv2.contourArea(c))
       
-  # 畫出等高線（除錯用）
+  # 畫出等高線（測試）
   # 畫出輪廓（要畫的圖片, 先前找出的輪廓 cnts, -1 = 所有找到的輪廓點, 顏色, 線條粗度）
   # cv2.drawContours(frame, cnts, -1, (0, 255, 255), 2)
   
