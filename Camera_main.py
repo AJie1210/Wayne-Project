@@ -67,7 +67,7 @@ while(cap.isOpened()):
 
   # 產生等高線
   # 尋找輪廓（二值化圖像, 輪廓檢索方式：外部輪廓, 輪廓近似方法：壓縮水平、垂直、對角線段、垂直、對角線段，留下四端點）
-  # 回傳值 cnts 輪廓, _ 階層（暫時不需）
+  # 回傳值 cnts = 輪廓, _ = 階層（暫時不需）
   cnts, _= cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
   for c in cnts:
