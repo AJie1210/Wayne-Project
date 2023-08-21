@@ -37,7 +37,7 @@ while(cap.isOpened()):
 
   # 顯示當前時間，視窗解析度
   font = cv2.FONT_HERSHEY_SIMPLEX
-  text = 'Width ' + str(cap.get(3)) + 'Height ' + str(cap.get(4))
+  text = 'Width ' + str(cap.get(3)) + '  ' +'Height ' + str(cap.get(4))
   date = str(datetime.datetime.now())
   frame = cv2.putText(frame, text, (10, 50), font, 1,
                       (0, 255, 255), 2, cv2.LINE_AA)
@@ -81,7 +81,7 @@ while(cap.isOpened()):
       
   # 畫出等高線（測試）
   # 畫出輪廓（要畫的圖片, 先前找出的輪廓 cnts, -1 = 所有找到的輪廓點, 顏色, 線條粗度）
-  # cv2.drawContours(frame, cnts, -1, (0, 255, 255), 2)
+  cv2.drawContours(frame, cnts, -1, (0, 255, 255), 2)
   
 
   out.write(frame)
