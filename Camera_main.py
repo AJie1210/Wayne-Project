@@ -81,7 +81,7 @@ while(cap.isOpened()):
       
   # 畫出等高線（測試）
   # 畫出輪廓（要畫的圖片, 先前找出的輪廓 cnts, -1 = 所有找到的輪廓點, 顏色, 線條粗度）
-  cv2.drawContours(frame, cnts, -1, (0, 255, 255), 2)
+  # cv2.drawContours(frame, cnts, -1, (0, 255, 255), 2)
   
 
   out.write(frame)
